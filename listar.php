@@ -21,12 +21,16 @@ for($i = 0;$i<(sizeof($array));$i++) {
 
     if ($fichero->Cabecera->CodigoREEEmpresaDestino == "0815") {
         //echo $i." - El fichero $array[$i] es de Home <br>";
-        $datos = $i." - El fichero $array[$i] es de Home \n";
-        historico ($datos);
+        //$datos = $i." - El fichero $array[$i] es de Home \n";
+        //historico ($datos);
+        //echo $array[$i];
+
+        atos($array[$i]);
     } else if ($fichero->Cabecera->CodigoREEEmpresaDestino == "0980") {
         //echo $i." - El fichero $array[$i] es de Energy <br>";
-        $datos = $i." - El fichero $array[$i] es de Energy \n";
-        historico ($datos);
+        //$datos = $i." - El fichero $array[$i] es de Energy \n";
+        //historico ($datos);
+
     }
 }
 

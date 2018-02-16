@@ -22,12 +22,38 @@ function audinfor ($xml) {
     copy($pathXml, $AudinforEnergyF1.$xml);
 }
 
-function historico ($datos) {
+function historico ($historico) {
 
     global $datos;
+    global $historico;
 
-    $FicheroLog = fopen("log-".date('Ymd-His').".txt", "a") or die("No se ha podido abrir el archivo");
-    fwrite($FicheroLog, date("Y-m-d-H:i:s_").$datos);
+
+    $FicheroLog = fopen("log/log-".date('Ymd-Hi').".txt", "a") or die("No se ha podido abrir el archivo");
+    $historico = date("Ymd-Hi_").$historico;
+    fwrite($FicheroLog, $historico);
     fclose($FicheroLog);
 }
+
+function atos ($xml) {
+
+    global $ATOS;
+
+    global $historico;
+    global $datos;
+
+    //copy("xml/".$xml, $ATOS.$xml);
+
+
+    if(!copy("./xml/".$xml, $ATOS.$xml)) {
+        $historico = "Fichero ".$xml." no se ha copiado a Directorio".$ATOS.$xml." \n";
+        historico($historico);
+    } else {
+        $historico = "Fichero ".$xml." se ha copiado a Directorio".$ATOS.$xml." \n";
+        historico($historico);
+    }
+
+}
+
+
+
 ?>
