@@ -35,18 +35,13 @@ if ($gestor = opendir('xml/')) {
     }
 }
 closedir($gestor);
-//ATOS();
-//PEAJES();
+ATOS();
+PEAJES();
 PIRAMIDE();
-/*
+AUDINFOR();
 if(ARCHIVAR($array) === 1) {
     BORRAR($array);
 }
-*/
-
-
-
-
 
 
 
@@ -102,12 +97,37 @@ function PIRAMIDE() {
     }
 }
 
-function AUDINFOR($xml) {
+function AUDINFOR() {
 
     global $array;
+    global $AudinforEnergyF1;
+    global $AudinforEnergyQ1;
+    global $AudinforHomeF1;
+    global $AudinforHomeQ1;
+    global $logs;
 
     for($i=0;$i<sizeof($array);$i++) {
-        echo ($i+1)." - Nombre fichero: ".$array[$i]."<br>";
+        //echo ($i+1)." - Nombre fichero: ".$array[$i]."<br>";
+        $fichero = simplexml_load_file("xml/".$array[$i]);
+
+        if (($fichero->Cabecera->CodigoREEEmpresaDestino == "0980") && ($fichero->Cabecera->CodigoDelProceso == "F1")) {
+            copy ("xml/".$array[$i], $AudinforHomeF1.$array[$i]);
+            $logs = "El fichero ".$array[$i]." ha sido copiado a AUDINFOR HOME F1 \n";
+            LOGS($logs);
+
+        } else if (($fichero->Cabecera->CodigoREEEmpresaDestino == "0980") && ($fichero->Cabecera->CodigoDelProceso == "Q1")) {
+            copy ("xml/".$array[$i], $AudinforHomeQ1.$array[$i]);
+            $logs = "El fichero ".$array[$i]." ha sido copiado a AUDINFOR HOME Q1\n";
+            LOGS($logs);
+        } else if (($fichero->Cabecera->CodigoREEEmpresaDestino == "0815") && ($fichero->Cabecera->CodigoDelProceso == "F1")) {
+            copy ("xml/".$array[$i], $AudinforEnergyF1.$array[$i]);
+            $logs = "El fichero ".$array[$i]." ha sido copiado a AUDINFOR ENERGY F1 \n";
+            LOGS($logs);
+        } else if (($fichero->Cabecera->CodigoREEEmpresaDestino == "0815") && ($fichero->Cabecera->CodigoDelProceso == "Q1")) {
+            copy ("xml/".$array[$i], $AudinforEnergyQ1.$array[$i]);
+            $logs = "El fichero ".$array[$i]." ha sido copiado a AUDINFOR ENERGY Q1\n";
+            LOGS($logs);
+        }
     }
 }
 
