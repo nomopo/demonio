@@ -1,5 +1,7 @@
 <?php
 
+
+
 include_once("rutas.php");
 
 
@@ -45,6 +47,27 @@ function atos ($xml) {
 
 
     if(!copy("./xml/".$xml, $ATOS.$xml)) {
+        $historico = "Fichero ".$xml." no se ha copiado a Directorio".$ATOS.$xml." \n";
+        historico($historico);
+    } else {
+        $historico = "Fichero ".$xml." se ha copiado a Directorio".$ATOS.$xml." \n";
+        historico($historico);
+    }
+
+}
+
+function piramide ($xml) {
+
+    global $PiramideEnergy;
+    global $PiramideHome;
+
+    global $historico;
+    global $datos;
+
+    $carpeta = date("Y-m-d H:i:s")."_";
+
+
+    if(!copy("./xml/".$xml, $PiramideHome.$xml)) {
         $historico = "Fichero ".$xml." no se ha copiado a Directorio".$ATOS.$xml." \n";
         historico($historico);
     } else {
